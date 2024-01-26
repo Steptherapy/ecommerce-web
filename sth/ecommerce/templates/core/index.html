@@ -1,0 +1,97 @@
+{% extends 'core/base.html' %} {% load static %} {% block content %}
+<div class="row">
+  <nav id="sidebar" class="col-md-2">
+    <div class="flex-shrink-0 p-3 bg-white" style="width: 280px">
+      <a
+        href="/"
+        class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom"
+      >
+        <span class="fs-5 fw-semibold">Productos</span>
+      </a>
+      <ul class="list-unstyled ps-0">
+        <li class="mb-1">
+          <button
+            class="btn btn-toggle align-items-center rounded collapsed"
+            data-bs-toggle="collapse"
+            data-bs-target="#home-collapse"
+            aria-expanded="false"
+          >
+            Marcas
+          </button>
+          <div class="collapse" id="home-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              {% for mar in marcas %}
+              <!-- Dentro del bucle de marcas -->
+              <li>
+                <a
+                  href="#"
+                  class="link-dark rounded listaSidebar"
+                  style="text-decoration: none"
+                  data-marca-id="{{ mar.id }}"
+                  data-target="productos-marcas"
+                  >{{ mar.nombreMarca }}</a
+                >
+              </li>
+
+              {% endfor %}
+            </ul>
+          </div>
+        </li>
+        <!-- Modelos -->
+        <li class="mb-1">
+          <button
+            class="btn btn-toggle align-items-center rounded collapsed"
+            data-bs-toggle="collapse"
+            data-bs-target="#modelos-collapse"
+            aria-expanded="false"
+          >
+            Modelos
+          </button>
+          <div class="collapse" id="modelos-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              {% for mod in modelos %}
+              <li>
+                <a
+                  href="#"
+                  class="link-dark rounded listaSidebar"
+                  style="text-decoration: none"
+                  >{{mod.nombreModelo}}</a
+                >
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </li>
+
+        <!-- Laboratorios -->
+        <li class="mb-1">
+          <button
+            class="btn btn-toggle align-items-center rounded collapsed"
+            data-bs-toggle="collapse"
+            data-bs-target="#laboratorios-collapse"
+            aria-expanded="false"
+          >
+            Laboratorios
+          </button>
+          <div class="collapse" id="laboratorios-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <!-- <li><a href="#" class="link-dark rounded">Overview</a></li> -->
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="col-10">
+    <hr />
+    <img
+      src="{% static 'core/img/banner-xl.png' %}"
+      alt=""
+      class="banner-img"
+    />
+    <hr />
+    <h2>Productos</h2>
+    {%include 'core/productos.html'%}
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,28 @@
+<div class="container" id="productos-marcas-container">
+  <div class="row">
+    {% for prod in productos %}
+    <div class="col-md-2 mb-2 producto" id="producto-{{ prod.id }}">
+      <div class="card">
+        <img
+          src="{{prod.foto.url}}"
+          class="card-img-top img-fluid"
+          alt="{{ prod.nombre }}"
+          style="margin: 10px; max-width: 90%"
+        />
+        <div class="card-body">
+          <h5 class="card-title" style="color: #5eab37">
+            {{prod.nombreProducto}}
+          </h5>
+          <p class="card-text">
+            {{prod.nombreProducto}} {{prod.modelo}}, {{prod.marca}}
+          </p>
+          <p class="card-text" style="color: #359704">
+            Precio: ${{prod.Precio}}
+          </p>
+          <a href="{% url 'detalleProducto' prod.idProducto %}" class="btn btn-primary">Detalles</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>

@@ -1,0 +1,40 @@
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+
+#img-footer{
+    max-width: 100px;
+    margin: 10px;
+}
+
+#img-navbar{
+    margin: 10px;
+    max-width: 50px;
+}
+
+.banner-img {
+    width: 100%;
+    max-width: 85%;
+    margin: auto;
+    padding: 0;
+    display: block;
+}
+
+#sidebar{
+    position: center;
+    padding:10px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.listaSidebar{
+    margin-left: 10%;
+}
+
