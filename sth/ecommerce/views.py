@@ -62,3 +62,14 @@ def login_view(request):
     else:
         form = LoginForm()
     return render(request, 'core/login.html', {'loginForm': form})
+
+def register_view(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('index')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'core/register.html', {'registerForm': form})

@@ -84,4 +84,13 @@ footer{
 
 .titulo-hover{
     color: #55A603!important;
+    font-size: small;
 }
+
+.menu-hover{
+    font-size: x-small;
+}
+
+.lista{
+    list-style: none;
+  }

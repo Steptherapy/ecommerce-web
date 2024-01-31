@@ -1,58 +1,140 @@
 {%load static%}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Step-Therapy©</title>
-    
-        <link rel="shortcut icon" href="{% static 'core/img/logo.ico' %}" type="image/x-icon">
-    
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-        />
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="{% static 'core/css/style.css' %}"
-        />
-        <link
-        rel="stylesheet"
-        type="text/css"
-        href="{% static 'core/css/login.css' %}"
-      />
-        <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-          crossorigin="anonymous"
-        />
-      </head>
-<body>
-    <div class="animated-background"></div>
 
-    <div class="login-container">
-        <!-- Tu formulario de login de Bootstrap aquí -->
-        <form method="post" action="{% url 'login' %}">
-            {% csrf_token %}
-            
-            <div class="mb-3">
-                <label for="{{ loginForm.username.id_for_label }}" class="form-label">Correo Electrónico</label>
-                {{ loginForm.username }}
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Step-Therapy©</title>
+
+  <link rel="shortcut icon" href="{% static 'core/img/logo.ico' %}" type="image/x-icon">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" type="text/css" href="{% static 'core/css/style.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'core/css/login.css' %}" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg fixed-top" style="background-color: rgb(255, 255, 255);">
+    <div class="container-fluid mx-auto text-center">
+      <img src="{% static 'core/img/logo-sombra.png' %}" alt="" id="img-navbar" />
+      <a class="navbar-brand" href="#">Step-Therapy</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <div class="nav-item dropdown" id="productosDropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              Productos
+            </a>
+            <div class="dropdown-menu" aria-labelledby="productosDropdown">
+              <!-- Marcas y Modelos -->
+              <div class="row">
+                <div class="col">
+                  <li class="dropdown-item titulo-hover" id="marcasDropdownBtn" href="#">Marcas</li>
+                  {% for mar in marcas %}
+                  <li class="lista">
+                    <a class="dropdown-item d-inline mr-2 text-truncate menu-hover" href="#"
+                      data-marca-id="{{ mar.id }}">
+                      {{mar.nombreMarca}}
+                    </a>
+                  </li>
+                  {% endfor %}
+                </div>
+                <div class="col">
+                  <li class="dropdown-item titulo-hover" id="modelosDropdownBtn" href="#">Modelos</li>
+                  {% for mod in modelos %}
+                  <li class="lista">
+                    <a class="dropdown-item d-inline mr-2 text-truncate menu-hover" href="#"
+                      data-marca-id="{{ mar.id }}">
+                      {{mod.nombreModelo}}
+                    </a>
+                  </li>
+                  {% endfor %}
+                </div>
+              </div>
             </div>
-            <div class="mb-3">
-                <label for="{{ loginForm.password.id_for_label }}" class="form-label">Contraseña</label>
-                {{ loginForm.password }}
-            </div>
-            
-            <button type="submit" class="btn btn-outline-success">Iniciar sesión</button>
+          </div>
+        </ul>
+      </div>
+      <div class="d-flex justify-content-center">
+        <form class="d-flex text-center" role="search">
+          <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" />
+          <button class="btn btn-outline-success" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
         </form>
-        <hr>
-        <div class="footer-link padding-top--24">
-            <span>¿Aún no tienes una cuenta? <a href="#">Crear usuario</a></span>
-        </div>
+      </div>
+      <a href="{%url 'login'%}" class="btn btn-outline-success boton-login"><i class="bi bi-person"></i>
+        Iniciar Sesion
+      </a>
     </div>
-    
+  </nav>
+  <div class="animated-background-login"></div>
+
+  <div class="login-container">
+    <!-- Tu formulario de login de Bootstrap aquí -->
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+
+      <div class="mb-3">
+        <label for="{{ loginForm.username.id_for_label }}" class="form-label">Correo Electrónico</label>
+        {{ loginForm.username }}
+      </div>
+      <div class="mb-3">
+        <label for="{{ loginForm.password.id_for_label }}" class="form-label">Contraseña</label>
+        {{ loginForm.password }}
+      </div>
+
+      <button type="submit" class="btn btn-outline-success">Iniciar sesión</button>
+    </form>
+    <hr>
+    <div class="footer-link padding-top--24">
+      <span>¿Aún no tienes una cuenta? <a href="{%url 'register'%}">Crear usuario</a></span>
+    </div>
+  </div>
+  <footer class="row row-cols-md-5 py-5 border-top" style="background: linear-gradient(to top, #b9d9ad, #ffffff)">
+    <div class="col mb-3 d-flex align-items-center" style="margin-left: 10%;">
+      <a href="/" class="link-dark text-decoration-none d-flex">
+        <img src="{% static 'core/img/logo-sombra.png' %}" alt="" id="img-footer" />
+      </a>
+      <p class="text-muted">Step-Therapy© 2024</p>
+    </div>
+
+    <div class="col mb-3"></div>
+
+    <div class="col mb-3">
+      <h5 style="color: #359704">Tienda</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2">
+          <a href="#" class="nav-link p-0 text-muted">Productos</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a href="#" class="nav-link p-0 text-muted">Ofertas</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a href="#" class="nav-link p-0 text-muted">Convenios</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col mb-3">
+      <h5 style="color: #359704">Nuestros Prductos</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2">
+          <a href="#" class="nav-link p-0 text-muted">Laboratorios</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a href="#" class="nav-link p-0 text-muted">Features</a>
+        </li>
+      </ul>
+    </div>
+  </footer>
 </body>
+
 </html>

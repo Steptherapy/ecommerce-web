@@ -1,35 +1,61 @@
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            overflow: hidden;
-            background-color: #ffffff;
-            /* Fondo blanco */
-        }
+/* Estilos generales del body (comentados por si los necesitas) */
+/*
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #ffffff;  
+}
+*/
 
-        .animated-background {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: url(/static/core/img/logo.png) center center fixed;
-            animation: moveBackground 100s linear infinite;
-            background-size: 25%;
-            filter: blur(10px);
-        }
+/* Animación del fondo */
+.animated-background-register {
+    position: absolute;
+    width: 100%;
+    height: 140vh;
+    background: url(/static/core/img/logo.png) center center fixed;
+    animation: moveBackground 100s linear infinite;
+    background-size: 25%; /* Cambiado a cover */
+    filter: blur(10px);
+}
 
-        @keyframes moveBackground {
-            to {
-                background-position: 100% 50%, 50% 0;
-            }
-        }
+.animated-background-login {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background: url(/static/core/img/logo.png) center center fixed;
+    animation: moveBackground 100s linear infinite;
+    background-size: 25%; /* Cambiado a cover */
+    filter: blur(10px);
+}
 
-        .login-container {
-            position: relative;
-            z-index: 1;
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 30px;
-            background-color: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            margin-top: 100px;
-        }
+@keyframes moveBackground {
+    to {
+        background-position: 100% 50%, 50% 0;
+    }
+}
+
+/* Estilos del contenedor de login */
+.login-container {
+    position: relative;
+    z-index: 1;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-top: 20vh; /* Centrado vertical ajustado */
+}
+
+/* Estilos del contenedor de registro */
+.register-container {
+    position: relative;
+    z-index: 1;
+    max-width: 400px;
+    margin: 20px auto; /* Añadido espacio entre los contenedores */
+    padding: 2%;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-top: 20vh; /* Centrado vertical ajustado */
+}
