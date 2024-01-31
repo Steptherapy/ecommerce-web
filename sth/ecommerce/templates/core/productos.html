@@ -1,7 +1,8 @@
 <div class="container" id="productos-marcas-container">
+  <h2 class="titulo-seccion">Nuestros Productos</h2>
   <div class="row">
     {% for prod in productos %}
-    <div class="col-md-3 mb-3 producto" id="producto-{{ prod.id }}">
+    <div class="col-md-2 mb-2 producto" id="producto-{{ prod.id }}">
       <div class="card">
         <img
           src="{{prod.foto.url}}"
@@ -10,11 +11,14 @@
           style="margin: 10px; max-width: 90%"
         />
         <div class="card-body">
-          <h5 class="card-title" style="color: #5eab37">
+          <h5 class="card-title" style="color: #5eab37;font-size: medium;">
             {{prod.nombreProducto}}
           </h5>
           <p class="card-text" style="font-size: small;">
-            {{prod.modelo}}, {{prod.marca}}
+            {{prod.modelo}}
+          </p>
+          <p class="card-text" style="font-size: small;">
+            {{prod.marca}}
           </p>
           <p class="card-text" style="color: #359704">
             Precio: ${{prod.Precio}}
