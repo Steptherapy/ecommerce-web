@@ -63,7 +63,7 @@ class Producto(models.Model):
     nombreproducto = models.CharField(max_length=80)
     numeroserieproducto = models.CharField(max_length=150)
     fechaingresoproducto = models.DateTimeField(default=now, editable=False)
-    preciounitarioproducto = models.DecimalField(max_digits=9, decimal_places=2)
+    preciounitarioproducto = models.DecimalField(max_digits=9, decimal_places=0)
     imagenproducto = models.ImageField(null=True, blank=True)
     descripcionproducto = models.CharField(max_length=250)
     productoactivo = models.IntegerField()

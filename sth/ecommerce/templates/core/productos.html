@@ -5,14 +5,14 @@
     <div class="col-md-2 mb-2 producto" id="producto-{{ prod.id }}">
       <div class="card">
         <img
-          src="{{prod.foto.url}}"
+          src="{{prod.imagenproducto.url}}"
           class="card-img-top img-fluid"
           alt="{{ prod.nombre }}"
           style="margin: 10px; max-width: 90%"
         />
         <div class="card-body">
           <h5 class="card-title" style="color: #5eab37;font-size: medium;">
-            {{prod.nombreProducto}}
+            {{prod.nombreproducto}}
           </h5>
           <p class="card-text" style="font-size: small;">
             {{prod.modelo}}
@@ -21,9 +21,9 @@
             {{prod.marca}}
           </p>
           <p class="card-text" style="color: #359704">
-            Precio: ${{prod.Precio}}
+            Precio: ${{prod.preciounitarioproducto}}
           </p>
-          <a href="{% url 'detalleProducto' prod.idProducto %}" class="btn btn-primary">Detalles</a>
+          <a href="{% url 'detalleProducto' prod.id %}" class="btn btn-primary">Detalles</a>
         </div>
       </div>
     </div>

@@ -11,5 +11,11 @@ urlpatterns = [
     path('accounts/create/', register_view, name='register'),
     
     path('detalleProducto/<int:producto_id>/', detalleProducto, name='detalleProducto'),
+    
+    path('detalleCarrito/', detalleCarrito, name='detalleCarrito'),
+    path("agregar/<int:id>/", agregar_producto, name="Add"),
+    path("eliminar/<int:id/", eliminar_producto, name="Del"),
+    path("restar/<int:id>/", restar_producto, name="Sub"),
+    path("limpiar/", limpiar_carrito, name="Cls"),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

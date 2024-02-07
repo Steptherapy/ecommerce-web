@@ -94,3 +94,7 @@ footer{
 .lista{
     list-style: none;
   }
+
+#mensajeSinProductos{
+    margin: 10%;
+}

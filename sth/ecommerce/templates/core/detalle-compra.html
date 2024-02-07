@@ -1,0 +1,59 @@
+{% extends 'core/base-sin-carrousel.html' %} {% load static %} {% block content %}
+<hr>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th colspan="5" class="text-center" style="width: 3px; font-size: smaller;">
+                CARRITO
+            </th>
+        </tr>
+        <tr>
+            <th scope="col" style="width: 3px; font-size: smaller;">NOMBRE</th>
+            <th scope="col" style="width: 3px; font-size: smaller;">PRECIO</th>
+            <th scope="col" style="width: 3px; font-size: smaller;">CANTIDAD</th>
+            <th scope="col" style="width: 3px; font-size: smaller;">Agregar</th>
+            <th scope="col" style="width: 3px; font-size: smaller;">Quitar</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if request.session.carrito.items %}
+        {% for key, values in request.session.carrito.items %}
+        <tr>
+            <td style="width: 3px; font-size: smaller;">{{ values.nombreproducto }}</td>
+            <td style="width: 3px; font-size: smaller;">{{ values.Precio }}</td>
+            <td style="width: 3px; font-size: smaller;">{{ values.Cantidad }}</td>
+            <td style="width: 3px; font-size: smaller;">
+
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="5">
+                <div class="alert alert-danger text-center">
+                    <p style="color: cadetblue;">Sin Productos</p>
+                </div>
+            </td>
+        </tr>
+        {% endif %}
+        <tr>
+            <th>Total:</th>
+            <td colspan="4">${{ total_carrito }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="row text-center" colspan="5">
+    <div colspan="2">
+        <a href="#" class="btn btn-danger">Limpiar</a>
+    </div>
+    <div colspan="2">
+        <a href="#" class="btn btn-success">Pagar</a>
+    </div>
+
+</div>
+
+{%endblock%}

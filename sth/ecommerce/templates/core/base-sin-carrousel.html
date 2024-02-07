@@ -19,7 +19,7 @@
   <nav class="navbar navbar-expand-lg fixed-top" style="background-color: rgb(255, 255, 255);">
     <div class="container-fluid mx-auto text-center">
       <img src="{% static 'core/img/logo-sombra.png' %}" alt="" id="img-navbar" />
-      <a class="navbar-brand" href="#">Step-Therapy</a>
+      <a class="navbar-brand" href="{% url 'index'%}">Step-Therapy</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -27,8 +27,8 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <div class="nav-item dropdown" id="productosDropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href='index' role="button" data-bs-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
               Productos
             </a>
             <div class="dropdown-menu" aria-labelledby="productosDropdown">
@@ -59,10 +59,10 @@
               </div>
             </div>
           </div>
-          
+
         </ul>
       </div>
-      <div class="d-flex justify-content-center" style="margin-right: 20%;">
+      <div class="d-flex justify-content-center">
         <form class="d-flex text-center" role="search">
           <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" />
           <button class="btn btn-outline-success" type="submit">
@@ -73,27 +73,10 @@
       <a href="{%url 'login'%}" class="btn btn-outline-success boton-login"><i class="bi bi-person"></i>
         Iniciar Sesion
       </a>
-      <a href="{%url 'detalleCarrito'%}" class="btn btn-outline-success boton-login"><i class="bi bi-cart"></i>
-      </a>
     </div>
+    <a href="{%url 'detalleCarrito'%}" class="btn btn-outline-success boton-login"><i class="bi bi-cart"></i>
+    </a>
   </nav>
-
-  <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="{% static 'core/img/carrousel1.jpg' %}" class="d-block w-100" alt="...">
-      </div>
-      <div class="carousel-item">
-        <img src="{% static 'core/img/carrousel2.jpg' %}" class="d-block w-100" alt="...">
-      </div>
-      <div class="carousel-item">
-        <img src="{% static 'core/img/carrousel1.jpg' %}" class="d-block w-100" alt="...">
-      </div>
-      <div class="carousel-item">
-        <img src="{% static 'core/img/carrousel2.jpg' %}" class="d-block w-100" alt="...">
-      </div>
-    </div>
-  </div>
   <content> {% block content %} {% endblock content %} </content>
 
   <footer class="row row-cols-md-5 py-5 border-top" style="background: linear-gradient(to top, #b9d9ad, #ffffff)">
@@ -110,7 +93,7 @@
       <h5 style="color: #359704">Tienda</h5>
       <ul class="nav flex-column">
         <li class="nav-item mb-2">
-          <a href="#" class="nav-link p-0 text-muted">Productos</a>
+          <a href="{% url 'index'%}" class="nav-link p-0 text-muted">Productos</a>
         </li>
         <li class="nav-item mb-2">
           <a href="#" class="nav-link p-0 text-muted">Ofertas</a>
