@@ -1,4 +1,4 @@
-{% extends 'core/base-sin-carrousel.html' %} {% load static %} {% block content %}
+{% extends 'core/detalle-producto.html' %} {% load static %} {% block content %}
 <hr>
 <table class="table table-bordered">
     <thead>
@@ -16,39 +16,44 @@
         </tr>
     </thead>
     <tbody>
-        {% if request.session.carrito.items %}
-        {% for key, values in request.session.carrito.items %}
-        <tr>
-            <td style="width: 3px; font-size: smaller;">{{ values.nombreproducto }}</td>
-            <td style="width: 3px; font-size: smaller;">{{ values.Precio }}</td>
-            <td style="width: 3px; font-size: smaller;">{{ values.Cantidad }}</td>
-            <td style="width: 3px; font-size: smaller;">
-
-            </td>
-            <td>
-
-            </td>
-        </tr>
-        {% endfor %}
+        {% if productos %}
+            {% for detalle_producto in productos %}
+            <tr>
+                <td style="width: 3px; font-size: smaller;">{{ detalle_producto.nombre }}</td>
+                <td style="width: 3px; font-size: smaller;">{{ detalle_producto.Precio }}</td>
+                <td style="width: 3px; font-size: smaller;">{{ detalle_producto.Cantidad }}</td>
+                <td scope="col" style="width: 3px; font-size: smaller;">
+                    <a href="{% url 'Add' detalle_producto.id_producto %}" class="btn btn-outline-success boton-login">
+                        <i class="bi bi-bag-plus-fill"></i>
+                    </a>
+                </td>
+                <td scope="col">
+                    <a href="{% url 'Sub' detalle_producto.id_producto %}" class="btn btn-outline-success boton-login">
+                        <i class="bi bi-trash3-fill"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
         {% else %}
-        <tr>
-            <td colspan="5">
-                <div class="alert alert-danger text-center">
-                    <p style="color: cadetblue;">Sin Productos</p>
-                </div>
-            </td>
-        </tr>
+            <tr>
+                <td colspan="5">
+                    <div class="alert alert-danger text-center">
+                        <p style="color: cadetblue;">Sin Productos</p>
+                    </div>
+                </td>
+            </tr>
         {% endif %}
         <tr>
             <th>Total:</th>
             <td colspan="4">${{ total_carrito }}</td>
         </tr>
     </tbody>
+
 </table>
 
 <div class="row text-center" colspan="5">
     <div colspan="2">
-        <a href="#" class="btn btn-danger">Limpiar</a>
+        <a href="{% url 'Cls'%}" class="btn btn-danger">Limpiar</a>
     </div>
     <div colspan="2">
         <a href="#" class="btn btn-success">Pagar</a>

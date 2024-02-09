@@ -1,21 +1,14 @@
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
-from .models import *
-
-from .models import *
-from .Carrito import *
-from .forms import *
-from django.contrib.auth.decorators import login_required, permission_required
-from django.views.generic import TemplateView
+from .models import Producto, Marca, Modelo
+from .Carrito import Carrito
+from .forms import LoginForm, CustomUserCreationForm
 from django.contrib.auth import authenticate, login
-from django.contrib.auth import logout as auth_logout
-# creacion de usuarios para la pagina (usuarios de django)
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 from django.views.decorators.http import require_POST
 
-# Create your views here.
 def index(request):
     productos = Producto.objects.all()
     marcas = Marca.objects.all()
@@ -27,25 +20,20 @@ def index(request):
         'modelos': modelos,
     }
     
-    return render(request, 'core/index.html', {**datos})
+    return render(request, 'core/index.html', datos)
 
 def detalleProducto(request, producto_id):
-    productos = Producto.objects.get(id=producto_id)
+    producto = Producto.objects.get(id=producto_id)
     marcas = Marca.objects.all()
     modelos = Modelo.objects.all()
 
     datos = {
-        'productos': productos,
+        'producto': producto,
         'marcas': marcas,
         'modelos': modelos,
     }
     
-    return render(request, 'core/detalle-producto.html', {**datos})
-
-def login(request):
-    return render(request,'core/login.html')
-
-from django.contrib.auth import authenticate, login
+    return render(request, 'core/detalle-producto.html', datos)
 
 def login_view(request):
     if request.method == 'POST':
@@ -55,7 +43,7 @@ def login_view(request):
             password = form.cleaned_data['password']
             user = authenticate(request, username=username, password=password)
             if user is not None:
-                login(request, user)  # Aquí deberías pasar tanto request como user
+                login(request, user)
                 if user.username == 'admin':
                     return redirect('vistaAdminClientes')
                 else:
@@ -77,39 +65,48 @@ def register_view(request):
         form = CustomUserCreationForm()
     return render(request, 'core/register.html', {'registerForm': form})
 
-def detalleCarrito(request):
-    productos= Producto.objects.all()
-    datos = {
-        'productos': productos
-    }
-    
-    
-    return render(request, 'core/detalle-compra.html',{**datos})
-
-# crud productos del carrito
+@login_required
 def agregar_producto(request, id_producto):
     carrito = Carrito(request)
-    producto = Producto.objects.get(id=id_producto)
-    carrito.agregar(producto)
-    return JsonResponse({'message': 'Producto agregado al carrito'})
+    producto ={
+        'id_producto': id_producto,
+    }
+    producto_id = producto['id_producto']
+    carrito.agregar(producto_id)
+    return redirect('detalleCarrito')
 
-
-
-def eliminar_producto(request, producto_id):
+@login_required
+def eliminar_producto(request, id_producto):
     carrito = Carrito(request)
-    producto = Producto.objects.get(id=producto_id)
-    carrito.eliminar(producto)
-    return redirect('tiendaLogeado')
+    producto ={
+        'id_producto': id_producto,
+    }
+    producto_id = producto['id_producto']
+    carrito.eliminar(producto_id)
+    return redirect('detalleCarrito')
 
-
-def restar_producto(request, producto_id):
+@login_required
+def restar_producto(request, id_producto):
     carrito = Carrito(request)
-    producto = Producto.objects.get(id=producto_id)
-    carrito.restar(producto)
-    return redirect('tiendaLogeado')
+    producto ={
+        'id_producto': id_producto,
+    }
+    producto_id = producto['id_producto']
+    carrito.restar(producto_id)
+    return redirect('detalleCarrito')
 
-
+@login_required
 def limpiar_carrito(request):
     carrito = Carrito(request)
     carrito.limpiar()
-    return redirect('tiendaLogeado')
+    return redirect('detalleCarrito')
+
+def detalleCarrito(request):
+    carrito = Carrito(request)
+    productos = carrito.obtener_productos_en_carrito()
+    total_carrito = carrito.obtener_total_carrito()
+    datos = {
+        'productos': productos,
+        'total_carrito': total_carrito,
+    }
+    return render(request, 'core/detalle-compra.html', datos)

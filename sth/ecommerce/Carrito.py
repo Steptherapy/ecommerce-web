@@ -6,23 +6,25 @@ class Carrito:
         self.session = request.session
         
         carrito = self.session.get("carrito")
-        if not carrito:
+        if carrito is None:
             self.session["carrito"] = {}
             self.carrito = self.session["carrito"]
         else:
             self.carrito = carrito
 
-    def agregar(self, producto):
-        id_producto = str(Producto.id)
+    def agregar(self, id_producto):
+        producto = Producto.objects.get(id=id_producto)
+        id_producto = str(id_producto)  # Convertir a cadena si es necesario
         if id_producto not in self.carrito.keys():
             self.carrito[id_producto] = {
-                "producto": producto,
-                "cantidad": 1,
-                "precio_total": Producto.preciounitarioproducto,
+                "id_producto": producto.id,  # Utilizar el ID del producto
+                "nombre": producto.nombreproducto,
+                "Precio": float(producto.preciounitarioproducto),
+                "Cantidad": 1,
             }
         else:
-            self.carrito[id_producto]["cantidad"] += 1
-            self.carrito[id_producto]["precio_total"] += producto.preciounitarioproducto
+            self.carrito[id_producto]["Cantidad"] += 1
+            self.carrito[id_producto]["Precio"] = float(producto.preciounitarioproducto)
         
         self.guardar_carrito()
             
@@ -30,24 +32,49 @@ class Carrito:
         self.session["carrito"] = self.carrito
         self.session.modified = True
 
-    def eliminar(self, producto_id):
-        id_producto = str(producto_id)
+    def eliminar(self, producto):
+        id_producto = str(producto.id)
         if id_producto in self.carrito:
             del self.carrito[id_producto]
         
         self.guardar_carrito()
         
-    def restar(self, producto_id):
-        id_producto = str(producto_id)
-        if id_producto in self.carrito:
-            if self.carrito[id_producto]["cantidad"] > 1:
-                self.carrito[id_producto]["cantidad"] -= 1
-                self.carrito[id_producto]["precio_total"] -= self.carrito[id_producto]["producto"].preciounitarioproducto
+    def restar(self, id_producto):
+        producto = Producto.objects.get(id=id_producto)
+        id_producto = str(id_producto)  # Convertir a cadena si es necesario
+        if id_producto not in self.carrito.keys():
+            self.carrito[id_producto] = {
+                "id_producto": producto.id,  # Utilizar el ID del producto
+                "nombre": producto.nombreproducto,
+                "Precio": float(producto.preciounitarioproducto,0),
+                "Cantidad": 1,
+            }
+        else:
+            if self.carrito[id_producto]["Cantidad"] > 1:
+                self.carrito[id_producto]["Cantidad"] -= 1
+                self.carrito[id_producto]["Precio"] = float(producto.preciounitarioproducto)
             else:
-                self.eliminar(producto_id)
-
+                self.eliminar(producto)
+        
         self.guardar_carrito()
         
     def limpiar(self):
         self.session["carrito"] = {}
         self.session.modified = True
+
+    def obtener_productos_en_carrito(self):
+        productos_en_carrito = []
+        for detalle_producto in self.carrito.values():
+            productos_en_carrito.append(detalle_producto)  # Agregar directamente el detalle del producto
+        return productos_en_carrito
+
+    
+    
+    def obtener_total_carrito(self):
+        total = 0
+        for detalle_producto in self.carrito.values():
+            if isinstance(detalle_producto, dict):
+                precio = int(detalle_producto.get('Precio', 0))
+                cantidad = int(detalle_producto.get('Cantidad', 0))
+                total += precio * cantidad
+        return total
